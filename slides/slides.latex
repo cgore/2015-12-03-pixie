@@ -113,7 +113,7 @@
 
 \newcommand{\fullSlideImage}[1]{
   \begin{center}
-    \includegraphics[width=4in,height=2.5in,keepaspectratio=true]{#1}
+    \includegraphics[width=4in,height=2.25in,keepaspectratio=true]{#1}
   \end{center}
 }
 
@@ -174,6 +174,52 @@
   \h{We write Clojure at The Climate Corporation,\\and we're hiring!  Come work
     with us!}
   \fullSlideImage{climate-logo-bluebg.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Some people actually program in languages other than Lisp.}
+
+  \fullSlideImage{mccarthy.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{I started using Common Lisp in 2004 for evolutionary computation as my
+    M.S. thesis, and quickly learned to love Lisp.}
+
+  \fullSlideImage{homersapien.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{And then I got a real job doing embedded C for an avionics firm up in
+    Milwaukee.}
+
+  \fullSlideImage{Airbus-A400M-MSN7.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Around 2009 I started messing around with Ruby a lot, and it's actually
+    pretty nice for a not-quite-Lisp.}
+
+  \fullSlideImage{ruby-blue.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{But for the last two years, I've been doing Clojure as my main gig, and
+    that's been pretty awesome.}
+
+  \fullSlideImage{clojure-blue.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{There's just one problem I really have with Clojure \textellipsis}
+
+  \fullSlideImage{java-blue.eps}
 \end{slide}
 
 
