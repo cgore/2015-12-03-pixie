@@ -193,6 +193,24 @@
 
 
 \begin{slide}
+  \h{I'm believe in Lisp that my personal project is a website (early alpha
+    stages) that uses a weird Lisp with \LaTeX-like appearance instead of
+    Markdown or something similar.}
+
+\begin{lstlisting}[language=TeX]
+Welcome to the future of crapflooding!
+
+\dotimes{1000
+  \b{Netcraft confirms it;} the JVM is naked and petrified!
+  \br
+}
+
+\it{Wasn't that fun?}
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
   \h{And then I got a real job doing embedded C for an avionics firm up in
     Milwaukee.}
 
@@ -220,6 +238,46 @@
   \h{There's just one problem I really have with Clojure \textellipsis}
 
   \fullSlideImage{java-blue.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Pixie is very early in development, inspired by Clojure (but not a
+    port/fork/clone), and doesn't run on top of the JVM.}
+
+  \fullSlideImage{pixie-blue.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Let's make a Pixie!}
+
+\begin{lstlisting}[language=sh]
+$ git clone git@github.com:pixie-lang/pixie.git
+$ cd pixie
+$ make build_with_jit # This is pretty
+$ ./pixie-vm # REPL = goodness
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{There's already a lot of cool stuff there.}
+
+\begin{lstlisting}
+$ ./pixie-vm    
+user => "Hello, Pixie!"
+"Hello, Pixie!"
+user => (println "Hello, Pixie!")
+Hello, Pixie!
+nil
+user => (+ 1 2 3)
+6
+user => (defn foo [x] (+ x 4077))
+<inst pixie.stdlib.Var>
+user => (foo 12)
+4089
+\end{lstlisting}
 \end{slide}
 
 
