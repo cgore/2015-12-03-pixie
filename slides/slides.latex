@@ -193,17 +193,19 @@
 
 
 \begin{slide}
-  \h{I'm believe in Lisp that my personal project is a website (early alpha
-    stages) that uses a weird Lisp with \LaTeX-like appearance instead of
-    Markdown or something similar.}
+  \h{I even think markup languages in web forums should be full-fledged lisps.}
 
 \begin{lstlisting}[language=TeX]
 Welcome to the future of crapflooding!
 
-\dotimes{1000
-  \b{Netcraft confirms it;} the JVM is naked and petrified!
-  \br
+\defun{\crapflood [\n]
+  \dotimes{\n
+    \b{Netcraft \blink{confirms} it;}
+    the JVM is naked and petrified!
+    \br
+  }
 }
+\crapflood{1000}
 
 \it{Wasn't that fun?}
 \end{lstlisting}
@@ -250,14 +252,27 @@ Welcome to the future of crapflooding!
 
 
 \begin{slide}
+  \h{Pixie sits on top of RPython, a subset of Python originally created for PyPy.}
+
+  \fullSlideImage{pypy-sticker-bluebg.eps}
+\end{slide}
+
+\begin{slide}
   \h{Let's make a Pixie!}
 
 \begin{lstlisting}[language=sh]
 $ git clone git@github.com:pixie-lang/pixie.git
 $ cd pixie
-$ make build_with_jit # This is pretty
+$ make build_with_jit
 $ ./pixie-vm # REPL = goodness
 \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Building Pixie takes a while, but at least it's pretty to watch it go.}
+
+  \fullSlideImage{fractal-rpython.eps}
 \end{slide}
 
 
@@ -277,6 +292,84 @@ user => (defn foo [x] (+ x 4077))
 <inst pixie.stdlib.Var>
 user => (foo 12)
 4089
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Namespaces work in manner just like in Clojure.}
+
+  
+\begin{lstlisting}
+user => (ns foo (:require [pixie.math :as math]))
+nil
+foo => (math/sin 1.2)
+0.932039
+foo => (math/sin 0.0)
+0.000000
+foo => (math/sin 3.14159)
+0.000003
+foo => (math/sin (/ 3.14159 2))
+1.000000
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Lots of basic stuff isn't quite there yet though.}
+
+  
+\begin{lstlisting}
+foo => math/PI
+ERROR:
+ in pixie function repl_fn
+
+in pixie/repl.pxi at 27:24
+               (let [x (eval form)]
+                       ^
+in internal function eval
+
+in <unknown> at 5:1
+math/PI
+^
+RuntimeException: :pixie.stdlib/AssertionException
+Var PI is undefined
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Numerics work as expected.}
+
+\begin{lstlisting}
+user => (+ 1 2)
+3
+user => (+ 1 2.0)
+3.000000
+user => (/ 1 2)
+1/2
+user => (/ 1 2.0)
+0.500000
+user => (/ 12)
+1/12
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Strings work as expected.}
+
+\begin{lstlisting}
+user => "foo"
+"foo"
+user => (ns foo (:require [pixie.string :as s]))
+nil
+foo => (str "foo" "bar")
+"foobar"
+foo => (count "foo")
+3
+foo => (s/upper-case "why should we shout?")
+"WHY SHOULD WE SHOUT?"
 \end{lstlisting}
 \end{slide}
 
