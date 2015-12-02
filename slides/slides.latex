@@ -53,8 +53,9 @@
 \usepackage{float}
 \usepackage{wrapfig}
 \usepackage{pifont}
-\usepackage{tikz}
+\usepackage{keystroke}
 
+\usepackage{tikz}
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 \tikzstyle{module}=[draw,fill=white]
 \tikzstyle{class}=[module, drop shadow]
@@ -63,6 +64,8 @@
 \tikzstyle{subclass}=[-open triangle 60, thick]
 \tikzstyle{mixin}=[-open triangle 60, dashed]
 \tikzstyle{instanceOf}=[->, thick]
+
+
 
 \usepackage{semcolor,slidesec}
 \input{seminar.bug}
@@ -277,6 +280,48 @@ $ ./pixie-vm # REPL = goodness
 
 
 \begin{slide}
+  \h{Pixie has a decent startup time, so it's usable for tasks run from shell scripts.}
+
+\begin{lstlisting}[language=sh]
+$ time ./hello-world.pxi
+Hello, world!
+
+real	0m0.120s
+user	0m0.110s
+sys	0m0.008s
+\end{lstlisting}
+
+  \h{Ruby for comparison:}
+
+\begin{lstlisting}[language=sh]
+$ time ./hello-world.rb
+Hello, world!
+
+real	0m0.033s
+user	0m0.026s
+sys	0m0.006s
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{How long does this take with Clojure?}
+  
+\begin{lstlisting}[language=sh]
+$ time lein exec hello-world.clj
+Hello, world!
+
+real	0m4.823s
+user	0m17.321s
+sys	0m0.599s
+\end{lstlisting}
+
+  \h{The JVM takes forever to start.}
+
+\end{slide}
+
+
+\begin{slide}
   \h{There's already a lot of cool stuff there.}
 
 \begin{lstlisting}
@@ -337,9 +382,16 @@ Var PI is undefined
 \end{lstlisting}
 \end{slide}
 
+\begin{slide}
+  \h{But it's open source and they are quite open to pull requests, so we can
+    add what we want!}
+
+  \fullSlideImage{adding-pi-to-pixie.eps}
+\end{slide}
+
 
 \begin{slide}
-  \h{Numerics work as expected.}
+  \h{Numerics work similar to Clojure.}
 
 \begin{lstlisting}
 user => (+ 1 2)
@@ -357,7 +409,7 @@ user => (/ 12)
 
 
 \begin{slide}
-  \h{Strings work as expected.}
+  \h{Strings work just like in Clojure.}
 
 \begin{lstlisting}
 user => "foo"
@@ -375,8 +427,93 @@ foo => (s/upper-case "why should we shout?")
 
 
 \begin{slide}
+  \h{Vectors work just like in Clojure.}
+
+\begin{lstlisting}
+user => (vector)
+[]
+user => []
+[]
+user => [1 2 3]
+[1 2 3]
+user => [1 2 "three" :four]
+[1 2 "three" :four]
+user => (= [1 2 3] [1 2 3])
+true
+user => (count [1 2 3])
+3
+user => (first [1 2 3])
+1
+user => (conj [1 2 3] 4)
+[1 2 3 4]
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Hash maps work just like in Clojure.}
+
+\begin{lstlisting}
+user => {:a 1 :b 2 :c 3}
+{:a 1, :c 3, :b 2}
+user => (def m {:a 1 :b 2 :c 3})
+<inst pixie.stdlib.Var>
+user => (:a m)
+1
+user => (m :a)
+1
+user => (merge m {:d 4})
+{:d 4, :a 1, :c 3, :b 2}
+user => (keys m)
+[:a :c :b]
+user => (vals m)
+[1 3 2]
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Functions work a lot like in Clojure.}
+
+\begin{lstlisting}
+user => (defn f [x] (+ x 2))
+<inst pixie.stdlib.Var>
+user => (f 12)
+14
+user => (def g (fn [x] (+ x 3)))
+<inst pixie.stdlib.Var>
+user => (g 12)
+15
+user => ((fn [x] (+ x 4)) 12)
+16
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{There's a \texttt{pixie-mode} for Emacs.}
+
+  \begin{itemize}
+  \item On Github: \texttt{https://github.com/johnwalker/pixie-mode}
+  \item M-x package-install \Return pixie-mode \Return
+  \item Make sure to have a build of Pixie on your path, I put mine at
+    \texttt{/opt/pixie}.
+  \item Add that to \texttt{PATH} environment variable in Emacs.
+  \item Add that to \texttt{exec-path} in Emacs too.
+  \item Then just C-c~C-z
+    to launch a Pixie REPL from a Pixie code file.
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
   \h{Conclusion}
 
+  Pixie is a fun little language with a lot of promise.
+  Using it for important production code today is probably asking to get fired,
+  but it's already an okay choice for some simple scripting tasks.
+  Help out and it'll be ready for prime time sometime soon!
+  
   \vfill
   \raggedleft
   \textcolor{\hc}{\textbf{\emph{\Huge{Questions?}}}}
