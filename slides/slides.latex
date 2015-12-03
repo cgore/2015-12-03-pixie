@@ -255,7 +255,8 @@ Welcome to the future of crapflooding!
 
 
 \begin{slide}
-  \h{Pixie sits on top of RPython, a subset of Python originally created for PyPy.}
+  \h{Pixie sits on top of RPython, a weird variant of Python for creating
+    programming languages, originally created for PyPy.}
 
   \fullSlideImage{pypy-sticker-bluebg.eps}
 \end{slide}
@@ -266,7 +267,7 @@ Welcome to the future of crapflooding!
 \begin{lstlisting}[language=sh]
 $ git clone git@github.com:pixie-lang/pixie.git
 $ cd pixie
-$ make build_with_jit
+$ make build_with_jit # This takes a while ...
 $ ./pixie-vm # REPL = goodness
 \end{lstlisting}
 \end{slide}
@@ -318,6 +319,22 @@ sys	0m0.599s
 
   \h{The JVM takes forever to start.}
 
+\end{slide}
+
+
+\begin{slide}
+  \h{There's a \texttt{pixie-mode} for Emacs.}
+
+  \begin{itemize}
+  \item On Github: \texttt{https://github.com/johnwalker/pixie-mode}
+  \item M-x package-install \Return pixie-mode \Return
+  \item Make sure to have a build of Pixie on your path, I put mine at
+    \texttt{/opt/pixie}.
+  \item Add that to \texttt{PATH} environment variable in Emacs.
+  \item Add that to \texttt{exec-path} in Emacs too.
+  \item Then just C-c~C-z
+    to launch a Pixie REPL from a Pixie code file.
+  \end{itemize}
 \end{slide}
 
 
@@ -491,18 +508,52 @@ user => ((fn [x] (+ x 4)) 12)
 
 
 \begin{slide}
-  \h{There's a \texttt{pixie-mode} for Emacs.}
+  \h{You have atoms just like in Clojure.}
 
-  \begin{itemize}
-  \item On Github: \texttt{https://github.com/johnwalker/pixie-mode}
-  \item M-x package-install \Return pixie-mode \Return
-  \item Make sure to have a build of Pixie on your path, I put mine at
-    \texttt{/opt/pixie}.
-  \item Add that to \texttt{PATH} environment variable in Emacs.
-  \item Add that to \texttt{exec-path} in Emacs too.
-  \item Then just C-c~C-z
-    to launch a Pixie REPL from a Pixie code file.
-  \end{itemize}
+\begin{lstlisting}
+user => (def a (atom 1))
+<inst pixie.stdlib.Var>
+user => a
+<inst pixie.stdlib.Atom>
+user => @a
+1
+user => (reset! a 7)
+7
+user => @a
+7
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{You can have anonymous function literals, just like in Clojure.}
+
+\begin{lstlisting}
+user => (map #(+ % 2) [1 2 3])
+(3 4 5)
+user => (map #(+ %1 %2) [1 2 3] [4 5 6])
+(5 7 9)
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{All the basic logic and control flow you would expect is available, and
+    typically works exactly like it does in Clojure.}
+
+\begin{lstlisting}
+user => (defn small [x]
+          (if (< x 100)
+            (println x "is pretty small.")
+            (println "Wow," x "is huge!")))
+<inst pixie.stdlib.Var>
+user => (small 12)
+12 is pretty small.
+nil
+user => (small 1000)
+Wow, 1000 is huge!
+nil
+\end{lstlisting}
 \end{slide}
 
 
